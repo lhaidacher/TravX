@@ -5,4 +5,5 @@
     <string name="overview_add_content_description">Add action</string>
     <string name="overview_add_title">Reise erstellen</string>
     <string name="overview_image_content_description">Background image</string>
+    <string name="journey_list_item_image">image</string>
 </resources>
