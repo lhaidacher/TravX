@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TravX</string>
+    <string name="overview_image">Overview image</string>
+    <string name="overview_title">Travel Overview</string>
+    <string name="overview_add_content_description">Add action</string>
+    <string name="overview_add_title">Reise erstellen</string>
+    <string name="overview_image_content_description">Background image</string>
+</resources>
