@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private JourneyListFragment journeyListFragment;
 
     private List<Journey> journeys = new ArrayList<Journey>() {{
-        //add(new Journey("Island"));
-        //add(new Journey("Irland"));
-        //add(new Journey("Klettern 2020"));
+        add(new Journey("Island", "Traveling alone..."));
+        add(new Journey("Irland", "Honey's birthday trip :)"));
+        add(new Journey("Klettern 2020", ""));
     }};
 
 

@@ -41,18 +41,24 @@ public class JourneyListAdapter extends RecyclerView.Adapter<JourneyListAdapter.
 
     class JourneyViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle;
+        private TextView tvDescription;
         private View rootView;
 
         public JourneyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvJourneyTitle);
+            tvDescription = itemView.findViewById(R.id.tvJourneyDescription);
             rootView = itemView.findViewById(R.id.cvJourney);
-
         }
 
         public void bindItem(Journey journey) {
             tvTitle.setText(journey.getTitle());
+            tvDescription.setText(getDescription(journey.getDescription()));
             rootView.setOnClickListener(view -> itemClickListener.onJourneyItemClicked(journey));
+        }
+
+        private String getDescription(String description) {
+            return description.isEmpty() ? "-" : description;
         }
     }
 

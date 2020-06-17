@@ -8,7 +8,6 @@
     android:layout_margin="5dp"
     android:foreground="?attr/selectableItemBackground">
 
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,6 +36,15 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     tools:text="Title" />
+
+                <TextView
+                    android:id="@+id/tvJourneyDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    tools:text="Description" />
 
             </LinearLayout>
 
