@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar topAppBar = findViewById(R.id.topAppBar);
         topAppBar.setOnMenuItemClickListener(menuItem -> {
             if (menuItem.getItemId() == R.id.add) {
-                System.out.println("test"); //TODO
-                return true;
+                Intent intent = new Intent(this, CreateJourneyActivity.class);
+                startActivity(intent);
             }
 
             return false;
