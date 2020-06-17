@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import at.fhj.swd.travx.R;
+import at.fhj.swd.travx.util.InputUtils;
 
 public class CreateJourneyActivity extends AppCompatActivity {
 
@@ -31,12 +32,19 @@ public class CreateJourneyActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        topAppBar.setOnMenuItemClickListener(menuItem -> {
-            if (menuItem.getItemId() == R.id.add) {
+        topAppBar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.add) {
+                String tripName = InputUtils.getText(findViewById(R.id.tfTripName));
+                String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
+                Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
+
                 Log.i("CREATE_JOURNEY", "create journey..."); //TODO impl
+                Log.i("CREATE_JOURNEY_TITLE", tripName);
+                Log.i("CREATE_JOURNEY_DESC", tripDescription);
+                Log.i("CREATE_JOURNEY_BUDGET", tripBudget.toString());
             }
 
-            return false;
+            return true;
         });
     }
 }

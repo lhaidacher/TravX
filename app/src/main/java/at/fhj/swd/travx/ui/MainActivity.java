@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
-            return false;
+            return true;
         });
 
         emptyJourneyListFragment = new EmptyJourneyListFragment();
