@@ -3,12 +3,12 @@
     <string name="overview_image">Overview image</string>
     <string name="overview_title">Travel Overview</string>
     <string name="overview_add_content_description">Add action</string>
-    <string name="overview_add_title">create journey</string>
+    <string name="overview_add_title">create trip</string>
     <string name="overview_image_content_description">Background image</string>
     <string name="journey_list_item_image">image</string>
-    <string name="no_journey_available">keine Journey verfügar</string>
+    <string name="no_journey_available">no trip available</string>
     <string name="create_journey_title">Add new Trip</string>
-    <string name="create_journey_create_title">create journey</string>
+    <string name="create_journey_create_title">create trip</string>
     <string name="create_journey_details">TRIP DETAILS</string>
     <string name="create_journey_trip_name">Name</string>
     <string name="create_journey_friend">ADD FRIENDS</string>
