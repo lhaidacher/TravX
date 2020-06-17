@@ -6,4 +6,5 @@
     <string name="overview_add_title">Reise erstellen</string>
     <string name="overview_image_content_description">Background image</string>
     <string name="journey_list_item_image">image</string>
+    <string name="no_journey_available">keine Journey verfügar</string>
 </resources>

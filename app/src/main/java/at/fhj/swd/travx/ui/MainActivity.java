@@ -6,10 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +14,17 @@ import java.util.Objects;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.domain.Journey;
+import at.fhj.swd.travx.ui.fragment.EmptyJourneyListFragment;
 import at.fhj.swd.travx.ui.fragment.JourneyListFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private EmptyJourneyListFragment emptyJourneyListFragment;
+    private JourneyListFragment journeyListFragment;
 
     private List<Journey> journeys = new ArrayList<Journey>() {{
-        add(new Journey("Island"));
-        add(new Journey("Irland"));
-        add(new Journey("Klettern 2020"));
+        //add(new Journey("Island"));
+        //add(new Journey("Irland"));
+        //add(new Journey("Klettern 2020"));
     }};
 
 
@@ -47,11 +47,15 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        JourneyListFragment journeyListFragment = new JourneyListFragment();
+        emptyJourneyListFragment = new EmptyJourneyListFragment();
+        journeyListFragment = new JourneyListFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.flFragmentContainer, journeyListFragment);
+        transaction.add(R.id.flFragmentContainer, emptyJourneyListFragment);
+        transaction.hide(journeyListFragment);
+        transaction.hide(emptyJourneyListFragment);
         transaction.commit();
 
         new Thread(() -> { // TODO check alternative (maybe not needed anymore if DB connection is established
@@ -62,5 +66,21 @@ public class MainActivity extends AppCompatActivity {
             }
             runOnUiThread(() -> journeyListFragment.update(journeys));
         }).start();
+
+        setFragment(journeys.size());
+    }
+
+    private void setFragment(int journeys) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (journeys > 0) {
+            transaction.hide(emptyJourneyListFragment);
+            transaction.show(journeyListFragment);
+        } else {
+            transaction.hide(journeyListFragment);
+            transaction.show(emptyJourneyListFragment);
+        }
+
+        transaction.commit();
     }
 }
