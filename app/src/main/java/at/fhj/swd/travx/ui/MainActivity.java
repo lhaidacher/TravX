@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 import at.fhj.swd.travx.R;
+import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.ui.fragment.EmptyJourneyListFragment;
 import at.fhj.swd.travx.ui.fragment.JourneyListFragment;
@@ -22,11 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EmptyJourneyListFragment emptyJourneyListFragment;
     private JourneyListFragment journeyListFragment;
 
-    private List<Journey> journeys = new ArrayList<Journey>() {{
-        add(new Journey("Island", "Traveling alone..."));
-        add(new Journey("Irland", "Honey's birthday trip :)"));
-        add(new Journey("Klettern 2020", ""));
-    }};
+    private List<Journey> journeys = new ArrayList<>();
 
 
     @Override
@@ -59,22 +57,23 @@ public class MainActivity extends AppCompatActivity {
         transaction.hide(emptyJourneyListFragment);
         transaction.commit();
 
-        new Thread(() -> { // TODO check alternative (maybe not needed anymore if DB connection is established
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            runOnUiThread(() -> journeyListFragment.update(journeys));
-        }).start();
-
-        setFragment(journeys.size());
+        setFragment();
+        loadJourneys();
     }
 
-    private void setFragment(int journeys) {
+    private void loadJourneys() {
+        new Thread(() -> {
+            journeys = Database.getInstance(this).journeyDao().findAll();
+            Log.i("NUMBER_OF_JOURNEYS", String.valueOf(journeys.size()));
+            runOnUiThread(() -> journeyListFragment.update(journeys));
+            setFragment();
+        }).start();
+    }
+
+    private void setFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (journeys > 0) {
+        if (journeys.size() > 0) {
             transaction.hide(emptyJourneyListFragment);
             transaction.show(journeyListFragment);
         } else {

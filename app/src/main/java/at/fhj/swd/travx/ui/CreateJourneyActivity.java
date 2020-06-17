@@ -12,6 +12,8 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.Objects;
 
 import at.fhj.swd.travx.R;
+import at.fhj.swd.travx.dao.Database;
+import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.util.InputUtils;
 
 public class CreateJourneyActivity extends AppCompatActivity {
@@ -38,7 +40,13 @@ public class CreateJourneyActivity extends AppCompatActivity {
                 String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
                 Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
 
-                Log.i("CREATE_JOURNEY", "create journey..."); //TODO impl
+                new Thread(() -> Database.getInstance(this)
+                        .journeyDao()
+                        .add(
+                                new Journey(tripName, tripDescription, tripBudget)
+                        )
+                ).start();
+
                 Log.i("CREATE_JOURNEY_TITLE", tripName);
                 Log.i("CREATE_JOURNEY_DESC", tripDescription);
                 Log.i("CREATE_JOURNEY_BUDGET", tripBudget.toString());
