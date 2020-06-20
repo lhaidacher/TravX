@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TravX</string>
+    <string name="google_maps_key">AIzaSyBQhcmDlyP01yNwTd4RTlatQIAJH3wJHw0</string>
     <string name="overview_image">Overview image</string>
     <string name="overview_title">Travel Overview</string>
     <string name="overview_add_content_description">Add action</string>

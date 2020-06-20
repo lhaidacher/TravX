@@ -129,4 +129,9 @@
         android:gravity="center"
         android:text="@string/bill_location_title" />
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/billMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>
