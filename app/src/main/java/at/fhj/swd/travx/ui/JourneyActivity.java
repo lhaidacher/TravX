@@ -10,14 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
+import at.fhj.swd.travx.domain.Bill;
 import at.fhj.swd.travx.domain.Journey;
+import at.fhj.swd.travx.domain.JourneyStats;
+import at.fhj.swd.travx.util.CurrencyUtils;
+import at.fhj.swd.travx.util.DateUtils;
 import at.fhj.swd.travx.util.ThreadUtils;
 
 public class JourneyActivity extends AppCompatActivity {
@@ -27,6 +31,11 @@ public class JourneyActivity extends AppCompatActivity {
     private TextView tvDescription;
     private TextView tvBudget;
     private TextView tvCreated;
+    private TextView tvUsedBudget;
+    private TextView tvHighestBill;
+    private TextView tvLowestBill;
+    private TextView tvAverage;
+    private TextView tvLastBill;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +50,11 @@ public class JourneyActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvJourneyDescription);
         tvBudget = findViewById(R.id.tvJourneyBudget);
         tvCreated = findViewById(R.id.tvJourneyCreated);
+        tvUsedBudget = findViewById(R.id.tvJourneyBudgetUsed);
+        tvHighestBill = findViewById(R.id.tvJourneyBudgetMaxBill);
+        tvLowestBill = findViewById(R.id.tvJourneyBudgetMinBill);
+        tvAverage = findViewById(R.id.tvJourneyBudgetAverage);
+        tvLastBill = findViewById(R.id.tvJourneyBudgetLastBill);
 
         Toolbar topAppBar = findViewById(R.id.topAppBar);
 
@@ -66,13 +80,35 @@ public class JourneyActivity extends AppCompatActivity {
                 .journeyDao()
                 .findByName(getIntent().getStringExtra("journey_name"));
 
+        List<Bill> bills = new ArrayList<Bill>() {
+            {
+                add(new Bill(123L));
+                //add(new Bill(54L));
+                //add(new Bill(65L));
+                //add(new Bill(76L));
+                //add(new Bill(3L));
+            }
+        };
+
+        JourneyStats stats = new JourneyStats(bills);
+
         Log.i("JOURNEY_NAME", journey.getTitle());
 
         runOnUiThread(() -> {
             tvTitle.setText(journey.getTitle());
             tvDescription.setText(journey.getDescription());
-            tvBudget.setText(NumberFormat.getCurrencyInstance(Locale.GERMANY).format(journey.getBudget()));
-            tvCreated.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY).format(journey.getCreatedAt()));
+            tvBudget.setText(CurrencyUtils.format(journey.getBudget()));
+            tvCreated.setText(DateUtils.format(journey.getCreatedAt()));
+
+            if (stats.available()) {
+
+                tvUsedBudget.setText(String.format(Locale.GERMANY, "%s with %d bill%s", CurrencyUtils.format(stats.getSum()), bills.size(), bills.size() > 1 ? "s" : ""));
+                tvHighestBill.setText(CurrencyUtils.format(stats.getHighest().getValue()));
+                tvLowestBill.setText(CurrencyUtils.format(stats.getLowest().getValue()));
+                tvAverage.setText(CurrencyUtils.format(stats.getAvg()));
+                tvLastBill.setText(String.format("%s @ %s", CurrencyUtils.format(stats.getLast().getValue()), DateUtils.format(stats.getLast().getCreatedAt())));
+            }
+
         });
     }
 

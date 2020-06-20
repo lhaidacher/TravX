@@ -26,4 +26,9 @@
     <string name="journey_budget_overview">BUDGET OVERVIEW</string>
     <string name="dash">-</string>
     <string name="journey_view_created_label">CREATED</string>
+    <string name="journey_budget_used">USED BUDGET</string>
+    <string name="journey_budget_max_bill">HIGHEST BILL</string>
+    <string name="journey_budget_min_bill">LOWEST BILL</string>
+    <string name="journey_budget_last_bill">LAST BILL</string>
+    <string name="journey_budget_average">AVERAGE</string>
 </resources>
