@@ -10,17 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Bill;
 import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.domain.JourneyStats;
+import at.fhj.swd.travx.ui.fragment.BillListFragment;
 import at.fhj.swd.travx.util.CurrencyUtils;
 import at.fhj.swd.travx.util.DateUtils;
 import at.fhj.swd.travx.util.ThreadUtils;
@@ -69,6 +68,8 @@ public class JourneyActivity extends AppCompatActivity {
                 ThreadUtils.run(this::doScan);
             } else if (item.getItemId() == R.id.remove) {
                 ThreadUtils.run(this::doDelete);
+            } else if (item.getItemId() == R.id.view) {
+                ThreadUtils.run(this::doView);
             }
             return true;
         });
@@ -120,5 +121,11 @@ public class JourneyActivity extends AppCompatActivity {
 
     private void doScan() {
         // TODO
+    }
+
+    private void doView() {
+        Intent intent = new Intent(this, BillListActivity.class);
+        intent.putExtra("journey_name", journey.getTitle());
+        startActivity(intent);
     }
 }

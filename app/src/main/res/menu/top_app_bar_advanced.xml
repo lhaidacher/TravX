@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/view"
+        android:contentDescription="@string/overview_add_content_description"
+        android:icon="@drawable/ic_preview_24dp"
+        android:title="@string/journey_view_bills"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/remove"
         android:contentDescription="@string/overview_add_content_description"
         android:icon="@drawable/ic_remove_24dp"

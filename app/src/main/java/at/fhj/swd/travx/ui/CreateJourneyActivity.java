@@ -12,9 +12,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
+import java.util.Random;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
+import at.fhj.swd.travx.domain.Bill;
 import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.util.InputUtils;
 import at.fhj.swd.travx.util.ThreadUtils;
@@ -58,6 +60,20 @@ public class CreateJourneyActivity extends AppCompatActivity {
             Database.getInstance(this)
                     .journeyDao()
                     .add(journey);
+
+
+            // TODO remove below code
+            Random r = new Random();
+            int n = Math.abs(r.nextInt()) % 7;
+            for (int x = 0; x < n; x++) {
+                long value = Math.abs(r.nextLong()) % 151;
+
+                Database.getInstance(this)
+                        .billDao()
+                        .add(new Bill(journey.getTitle(), value));
+
+            }
+            // TODO remove above code
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

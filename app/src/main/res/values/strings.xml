@@ -31,4 +31,6 @@
     <string name="journey_budget_min_bill">LOWEST BILL</string>
     <string name="journey_budget_last_bill">LAST BILL</string>
     <string name="journey_budget_average">AVERAGE</string>
+    <string name="journey_bill_list">Bills</string>
+    <string name="journey_view_bills">view bills</string>
 </resources>
