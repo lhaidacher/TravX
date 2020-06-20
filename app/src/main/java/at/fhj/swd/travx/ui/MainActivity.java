@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Window;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadJourneys() {
         journeys = Database.getInstance(this).journeyDao().findAll();
+        Collections.sort(journeys, (j1, j2) -> j2.getCreatedAt().compareTo(j1.getCreatedAt()));
+
         Log.i("NUMBER_OF_JOURNEYS", String.valueOf(journeys.size()));
         runOnUiThread(() -> journeyListFragment.update(journeys));
         setFragment();

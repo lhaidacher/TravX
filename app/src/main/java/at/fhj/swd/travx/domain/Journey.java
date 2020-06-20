@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.Date;
+
+import at.fhj.swd.travx.dao.DateConverter;
 
 @Entity(tableName = "journey")
 public class Journey {
@@ -20,10 +25,16 @@ public class Journey {
     @ColumnInfo(name = "budget")
     private Long budget;
 
+    @NonNull
+    @ColumnInfo(name = "created_at")
+    @TypeConverters({DateConverter.class})
+    private Date createdAt;
+
     public Journey(@NonNull String title, @NonNull String description, @NonNull Long budget) {
         this.title = title;
         this.description = description;
         this.budget = budget;
+        this.createdAt = new Date();
     }
 
     @NonNull
@@ -51,5 +62,14 @@ public class Journey {
 
     public void setBudget(@NonNull Long budget) {
         this.budget = budget;
+    }
+
+    @NonNull
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(@NonNull Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
