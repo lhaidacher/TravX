@@ -19,6 +19,7 @@ import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.ui.fragment.EmptyJourneyListFragment;
 import at.fhj.swd.travx.ui.fragment.JourneyListFragment;
+import at.fhj.swd.travx.util.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
     private EmptyJourneyListFragment emptyJourneyListFragment;
@@ -58,16 +59,14 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
 
         setFragment();
-        loadJourneys();
+        ThreadUtils.run(this::loadJourneys);
     }
 
     private void loadJourneys() {
-        new Thread(() -> {
-            journeys = Database.getInstance(this).journeyDao().findAll();
-            Log.i("NUMBER_OF_JOURNEYS", String.valueOf(journeys.size()));
-            runOnUiThread(() -> journeyListFragment.update(journeys));
-            setFragment();
-        }).start();
+        journeys = Database.getInstance(this).journeyDao().findAll();
+        Log.i("NUMBER_OF_JOURNEYS", String.valueOf(journeys.size()));
+        runOnUiThread(() -> journeyListFragment.update(journeys));
+        setFragment();
     }
 
     private void setFragment() {

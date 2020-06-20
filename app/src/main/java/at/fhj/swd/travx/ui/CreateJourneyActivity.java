@@ -2,7 +2,6 @@ package at.fhj.swd.travx.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
@@ -15,6 +14,7 @@ import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Journey;
 import at.fhj.swd.travx.util.InputUtils;
+import at.fhj.swd.travx.util.ThreadUtils;
 
 public class CreateJourneyActivity extends AppCompatActivity {
 
@@ -36,23 +36,21 @@ public class CreateJourneyActivity extends AppCompatActivity {
 
         topAppBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.add) {
-                String tripName = InputUtils.getText(findViewById(R.id.tfTripName));
-                String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
-                Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
-
-                new Thread(() -> Database.getInstance(this)
-                        .journeyDao()
-                        .add(
-                                new Journey(tripName, tripDescription, tripBudget)
-                        )
-                ).start();
-
-                Log.i("CREATE_JOURNEY_TITLE", tripName);
-                Log.i("CREATE_JOURNEY_DESC", tripDescription);
-                Log.i("CREATE_JOURNEY_BUDGET", tripBudget.toString());
+                ThreadUtils.run(this::doSave);
             }
-
             return true;
         });
+    }
+
+    private void doSave() {
+        String tripName = InputUtils.getText(findViewById(R.id.tfTripName));
+        String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
+        Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
+
+        Database.getInstance(this)
+                .journeyDao()
+                .add(new Journey(tripName, tripDescription, tripBudget));
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
