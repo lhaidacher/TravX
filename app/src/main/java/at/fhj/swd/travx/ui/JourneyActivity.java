@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
@@ -80,19 +81,13 @@ public class JourneyActivity extends AppCompatActivity {
                 .journeyDao()
                 .findByName(getIntent().getStringExtra("journey_name"));
 
-        List<Bill> bills = new ArrayList<Bill>() {
-            {
-                add(new Bill(123L));
-                //add(new Bill(54L));
-                //add(new Bill(65L));
-                //add(new Bill(76L));
-                //add(new Bill(3L));
-            }
-        };
-
+        List<Bill> bills = Database.getInstance(this)
+                .billDao()
+                .findAllByJourneyTitle(journey.getTitle());
         JourneyStats stats = new JourneyStats(bills);
 
         Log.i("JOURNEY_NAME", journey.getTitle());
+        Log.i("JOURNEY_BILL_SIZE", String.valueOf(bills.size()));
 
         runOnUiThread(() -> {
             tvTitle.setText(journey.getTitle());

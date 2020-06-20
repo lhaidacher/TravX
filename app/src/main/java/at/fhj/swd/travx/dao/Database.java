@@ -5,14 +5,17 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import at.fhj.swd.travx.domain.Bill;
 import at.fhj.swd.travx.domain.Journey;
 
-@androidx.room.Database(entities = {Journey.class}, version = 4)
+@androidx.room.Database(entities = {Journey.class, Bill.class}, version = 4)
 public abstract class Database extends RoomDatabase {
 
     private static Database instance;
 
     public abstract JourneyDao journeyDao();
+
+    public abstract BillDao billDao();
 
     public synchronized static Database getInstance(Context context) {
         if (instance == null) {
