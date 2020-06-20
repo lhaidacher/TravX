@@ -1,6 +1,8 @@
 package at.fhj.swd.travx.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.domain.Bill;
+import at.fhj.swd.travx.ui.BillActivity;
 import at.fhj.swd.travx.ui.adapter.BillListAdapter;
 
 public class BillListFragment extends Fragment implements BillListAdapter.BillItemClickListener {
@@ -38,10 +41,9 @@ public class BillListFragment extends Fragment implements BillListAdapter.BillIt
 
     @Override
     public void onBillItemClicked(Bill bill) {
-        // TODO go to details
-        /*Log.i("JOURNEY_ITEM_CLICKED", journey.getTitle());
-        Intent intent = new Intent(getContext(), JourneyActivity.class);
-        intent.putExtra("journey_name", journey.getTitle());
-        startActivity(intent);*/
+        Intent intent = new Intent(getContext(), BillActivity.class);
+        intent.putExtra("journey_name", bill.getJourneyTitle());
+        intent.putExtra("bill_id", bill.getId());
+        startActivity(intent);
     }
 }

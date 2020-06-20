@@ -14,6 +14,9 @@ public interface BillDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long add(Bill bill);
 
+    @Query("SELECT * FROM bill WHERE id = :id")
+    Bill findById(Long id);
+
     @Query("SELECT * FROM bill WHERE journey_title LIKE :journeyTitle")
     List<Bill> findAllByJourneyTitle(String journeyTitle);
 

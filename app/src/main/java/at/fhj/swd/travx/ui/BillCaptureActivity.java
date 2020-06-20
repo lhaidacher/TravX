@@ -169,7 +169,7 @@ public class BillCaptureActivity extends AppCompatActivity implements RequestCal
                 Intent intent = new Intent(this, BillActivity.class);
                 intent.putExtra("journey_name", journeyName);
                 intent.putExtra("bill_id", id);
-                //startActivity(intent); //TODO start redirect
+                startActivity(intent);
             });
         }
     }

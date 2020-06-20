@@ -37,4 +37,10 @@
     <string name="bill_photo">make picture</string>
     <string name="journey_bill_capture">Bill Capture</string>
     <string name="bill_capture">BILL PHOTO</string>
+    <string name="bill_location_title">LOCATION</string>
+    <string name="bill_title">Bill</string>
+    <string name="bill_details">BILL DETAILS</string>
+    <string name="bill_value_label">VALUE</string>
+    <string name="bill_lat_label">LATITUDE</string>
+    <string name="bill_lon_label">LONGITUDE</string>
 </resources>
