@@ -61,20 +61,6 @@ public class CreateJourneyActivity extends AppCompatActivity {
                     .journeyDao()
                     .add(journey);
 
-
-            // TODO remove below code
-            Random r = new Random();
-            int n = Math.abs(r.nextInt()) % 7;
-            for (int x = 0; x < n; x++) {
-                long value = Math.abs(r.nextLong()) % 151;
-
-                Database.getInstance(this)
-                        .billDao()
-                        .add(new Bill(journey.getTitle(), value));
-
-            }
-            // TODO remove above code
-
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/capture"
+        android:contentDescription="@string/overview_add_content_description"
+        android:icon="@drawable/ic_photo_24dp"
+        android:title="@string/bill_photo"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/add"
+        android:contentDescription="@string/overview_add_content_description"
+        android:icon="@drawable/ic_add_24dp"
+        android:title="@string/bill_add"
+        app:showAsAction="always" />
+
+</menu>

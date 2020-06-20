@@ -27,6 +27,9 @@
         <activity android:name=".ui.CreateJourneyActivity" />
         <activity android:name=".ui.JourneyActivity" />
         <activity android:name=".ui.BillListActivity" />
+        <activity android:name=".ui.BillCaptureActivity" />
+
+        <service android:name=".service.LocationService"/>
     </application>
 
 </manifest>

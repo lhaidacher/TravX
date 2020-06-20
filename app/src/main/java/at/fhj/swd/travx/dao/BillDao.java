@@ -12,7 +12,7 @@ import at.fhj.swd.travx.domain.Bill;
 @Dao
 public interface BillDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void add(Bill bill);
+    long add(Bill bill);
 
     @Query("SELECT * FROM bill WHERE journey_title LIKE :journeyTitle")
     List<Bill> findAllByJourneyTitle(String journeyTitle);

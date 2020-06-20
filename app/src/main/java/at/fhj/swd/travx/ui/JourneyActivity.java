@@ -97,7 +97,6 @@ public class JourneyActivity extends AppCompatActivity {
             tvCreated.setText(DateUtils.format(journey.getCreatedAt()));
 
             if (stats.available()) {
-
                 tvUsedBudget.setText(String.format(Locale.GERMANY, "%s with %d bill%s", CurrencyUtils.format(stats.getSum()), bills.size(), bills.size() > 1 ? "s" : ""));
                 tvHighestBill.setText(CurrencyUtils.format(stats.getHighest().getValue()));
                 tvLowestBill.setText(CurrencyUtils.format(stats.getLowest().getValue()));
@@ -120,7 +119,9 @@ public class JourneyActivity extends AppCompatActivity {
     }
 
     private void doScan() {
-        // TODO
+        Intent intent = new Intent(this, BillCaptureActivity.class);
+        intent.putExtra("journey_name", journey.getTitle());
+        startActivity(intent);
     }
 
     private void doView() {

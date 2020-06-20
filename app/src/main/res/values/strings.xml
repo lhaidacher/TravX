@@ -33,4 +33,8 @@
     <string name="journey_budget_average">AVERAGE</string>
     <string name="journey_bill_list">Bills</string>
     <string name="journey_view_bills">view bills</string>
+    <string name="bill_add">add bill</string>
+    <string name="bill_photo">make picture</string>
+    <string name="journey_bill_capture">Bill Capture</string>
+    <string name="bill_capture">BILL PHOTO</string>
 </resources>
