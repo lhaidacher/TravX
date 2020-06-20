@@ -18,12 +18,12 @@ import java.util.Objects;
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Journey;
-import at.fhj.swd.travx.ui.fragment.EmptyJourneyListFragment;
+import at.fhj.swd.travx.ui.fragment.NothingAvailableFragment;
 import at.fhj.swd.travx.ui.fragment.JourneyListFragment;
 import at.fhj.swd.travx.util.ThreadUtils;
 
 public class MainActivity extends AppCompatActivity {
-    private EmptyJourneyListFragment emptyJourneyListFragment;
+    private NothingAvailableFragment nothingAvailableFragment;
     private JourneyListFragment journeyListFragment;
 
     private List<Journey> journeys = new ArrayList<>();
@@ -48,15 +48,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        emptyJourneyListFragment = new EmptyJourneyListFragment();
+        nothingAvailableFragment = new NothingAvailableFragment();
         journeyListFragment = new JourneyListFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.flFragmentContainer, journeyListFragment);
-        transaction.add(R.id.flFragmentContainer, emptyJourneyListFragment);
+        transaction.add(R.id.flFragmentContainer, nothingAvailableFragment);
         transaction.hide(journeyListFragment);
-        transaction.hide(emptyJourneyListFragment);
+        transaction.hide(nothingAvailableFragment);
         transaction.commit();
 
         setFragment();
@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (journeys.size() > 0) {
-            transaction.hide(emptyJourneyListFragment);
+            transaction.hide(nothingAvailableFragment);
             transaction.show(journeyListFragment);
         } else {
             transaction.hide(journeyListFragment);
-            transaction.show(emptyJourneyListFragment);
+            transaction.show(nothingAvailableFragment);
         }
 
         transaction.commit();

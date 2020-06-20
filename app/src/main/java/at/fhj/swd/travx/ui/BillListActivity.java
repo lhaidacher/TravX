@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -19,12 +20,14 @@ import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.dao.Database;
 import at.fhj.swd.travx.domain.Bill;
 import at.fhj.swd.travx.ui.fragment.BillListFragment;
+import at.fhj.swd.travx.ui.fragment.NothingAvailableFragment;
 import at.fhj.swd.travx.util.ThreadUtils;
 
 public class BillListActivity extends AppCompatActivity {
+    private NothingAvailableFragment nothingAvailableFragment;
     private BillListFragment billListFragment;
     private String journeyName;
-    private List<Bill> bills;
+    private List<Bill> bills = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,13 +48,17 @@ public class BillListActivity extends AppCompatActivity {
         });
 
         billListFragment = new BillListFragment();
+        nothingAvailableFragment = new NothingAvailableFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.flFragmentContainer, billListFragment);
+        transaction.add(R.id.flFragmentContainer, nothingAvailableFragment);
         transaction.hide(billListFragment);
+        transaction.hide(nothingAvailableFragment);
         transaction.commit();
 
+        setFragment();
         ThreadUtils.run(this::loadBills);
     }
 
@@ -70,6 +77,10 @@ public class BillListActivity extends AppCompatActivity {
 
         if (bills.size() > 0) {
             transaction.show(billListFragment);
+            transaction.hide(nothingAvailableFragment);
+        } else {
+            transaction.show(nothingAvailableFragment);
+            transaction.hide(billListFragment);
         }
 
         transaction.commit();
