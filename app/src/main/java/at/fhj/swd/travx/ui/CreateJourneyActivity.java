@@ -2,6 +2,7 @@ package at.fhj.swd.travx.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
@@ -47,9 +48,12 @@ public class CreateJourneyActivity extends AppCompatActivity {
         String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
         Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
 
+        Log.i("NEW_JOURNEY", tripName);
+
         Database.getInstance(this)
                 .journeyDao()
                 .add(new Journey(tripName, tripDescription, tripBudget));
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
