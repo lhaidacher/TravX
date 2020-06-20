@@ -30,8 +30,9 @@ public class Bill {
     @TypeConverters({DateConverter.class})
     private Date createdAt;
 
-    public Bill(@NonNull Long value) {
+    public Bill(String journeyTitle, @NonNull Long value) {
         this.value = value;
+        this.journeyTitle = journeyTitle;
         this.createdAt = new Date();
     }
 
