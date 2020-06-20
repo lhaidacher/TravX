@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.Objects;
 
 import at.fhj.swd.travx.R;
@@ -48,13 +50,57 @@ public class CreateJourneyActivity extends AppCompatActivity {
         String tripDescription = InputUtils.getText(findViewById(R.id.tfTripDescription));
         Long tripBudget = InputUtils.getLong(findViewById(R.id.tfTripBudget));
 
-        Log.i("NEW_JOURNEY", tripName);
+        Journey journey = new Journey(tripName, tripDescription, tripBudget);
 
-        Database.getInstance(this)
-                .journeyDao()
-                .add(new Journey(tripName, tripDescription, tripBudget));
+        if (isValid(journey)) {
+            Log.i("NEW_JOURNEY", tripName);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+            Database.getInstance(this)
+                    .journeyDao()
+                    .add(journey);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    private boolean isValid(Journey journey) {
+        clearErrors();
+        boolean isValid = true;
+
+        if (journey.getTitle().isEmpty()) {
+            setEmptyStringError(findViewById(R.id.tfTripName), "trip name");
+            isValid = false;
+        } else if (journey.getTitle().length() > 30) {
+            setTooLongStringError(findViewById(R.id.tfTripName), "Trip name");
+            isValid = false;
+        }
+
+        if (journey.getDescription().isEmpty()) {
+            setEmptyStringError(findViewById(R.id.tfTripDescription), "trip description");
+            isValid = false;
+        } else if (journey.getDescription().length() > 30) {
+            setTooLongStringError(findViewById(R.id.tfTripDescription), "Trip description");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void clearErrors() {
+        clearError(findViewById(R.id.tfTripName));
+        clearError(findViewById(R.id.tfTripDescription));
+    }
+
+    private void clearError(TextInputLayout input) {
+        runOnUiThread(() -> input.setError(null));
+    }
+
+    private void setEmptyStringError(TextInputLayout input, String inputName) {
+        runOnUiThread(() -> input.setError(String.format("No %s provided", inputName)));
+    }
+
+    private void setTooLongStringError(TextInputLayout input, String inputName) {
+        runOnUiThread(() -> input.setError(String.format("%s too long - max. 30.", inputName)));
     }
 }
