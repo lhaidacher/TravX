@@ -17,6 +17,7 @@ import java.util.List;
 
 import at.fhj.swd.travx.R;
 import at.fhj.swd.travx.domain.Journey;
+import at.fhj.swd.travx.ui.JourneyActivity;
 import at.fhj.swd.travx.ui.adapter.JourneyListAdapter;
 
 public class JourneyListFragment extends Fragment implements JourneyListAdapter.JourneyItemClickListener {
@@ -40,12 +41,9 @@ public class JourneyListFragment extends Fragment implements JourneyListAdapter.
 
     @Override
     public void onJourneyItemClicked(Journey journey) {
-        Log.i("JOURNEY_ITEM_CLICKED", journey.getTitle()); //TODO
-
-        /*
-        Intent intent = new Intent(getContext(), MeasurementActivity.class);
-        intent.putExtra("location_name", location.getLocation());
+        Log.i("JOURNEY_ITEM_CLICKED", journey.getTitle());
+        Intent intent = new Intent(getContext(), JourneyActivity.class);
+        intent.putExtra("journey_name", journey.getTitle());
         startActivity(intent);
-         */
     }
 }

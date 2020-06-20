@@ -15,4 +15,14 @@
     <string name="create_journey_trip_friend_add">add...</string>
     <string name="create_journey_trip_description">Description</string>
     <string name="create_journey_trip_budget">Budget</string>
+    <string name="journey_add_billing">add billing</string>
+    <string name="journey_delete_journey">delete trip</string>
+    <string name="journey_details">TRIP DETAILS</string>
+    <string name="journey_title">Trip</string>
+    <string name="journey_view_name_label">NAME</string>
+    <string name="journey_view_description_label">DESCRIPTION</string>
+    <string name="journey_view_budget_label">BUDGET</string>
+    <string name="journey_budget_name">2000</string>
+    <string name="journey_budget_overview">BUDGET OVERVIEW</string>
+    <string name="dash">-</string>
 </resources>

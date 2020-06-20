@@ -25,6 +25,7 @@
         </activity>
 
         <activity android:name=".ui.CreateJourneyActivity" />
+        <activity android:name=".ui.JourneyActivity" />
     </application>
 
 </manifest>

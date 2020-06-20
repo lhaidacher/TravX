@@ -16,4 +16,10 @@ public interface JourneyDao {
 
     @Query("SELECT * FROM journey")
     List<Journey> findAll();
+
+    @Query("DELETE FROM journey WHERE title LIKE :title")
+    void remove(String title);
+
+    @Query("SELECT * FROM journey WHERE title LIKE :title")
+    Journey findByName(String title);
 }
