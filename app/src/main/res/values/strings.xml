@@ -25,4 +25,5 @@
     <string name="journey_budget_name">2000</string>
     <string name="journey_budget_overview">BUDGET OVERVIEW</string>
     <string name="dash">-</string>
+    <string name="journey_view_created_label">CREATED</string>
 </resources>

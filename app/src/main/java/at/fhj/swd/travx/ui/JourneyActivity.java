@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -25,6 +26,7 @@ public class JourneyActivity extends AppCompatActivity {
     private TextView tvTitle;
     private TextView tvDescription;
     private TextView tvBudget;
+    private TextView tvCreated;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class JourneyActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvJourneyName);
         tvDescription = findViewById(R.id.tvJourneyDescription);
         tvBudget = findViewById(R.id.tvJourneyBudget);
+        tvCreated = findViewById(R.id.tvJourneyCreated);
 
         Toolbar topAppBar = findViewById(R.id.topAppBar);
 
@@ -69,6 +72,7 @@ public class JourneyActivity extends AppCompatActivity {
             tvTitle.setText(journey.getTitle());
             tvDescription.setText(journey.getDescription());
             tvBudget.setText(NumberFormat.getCurrencyInstance(Locale.GERMANY).format(journey.getBudget()));
+            tvCreated.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY).format(journey.getCreatedAt()));
         });
     }
 
